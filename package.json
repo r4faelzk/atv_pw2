@@ -1,0 +1,31 @@
+{
+  "name": "atividade",
+  "version": "1.0.0",
+  "description": "Atividade de PW2 criando um projeto de uma API REST",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/r4faelzk/atv_pw2.git"
+  },
+  "keywords": [
+    "etec",
+    "pw2",
+    "atividade",
+    "api"
+  ],
+  "author": "Rafael Ferreira de Oliveira",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/r4faelzk/atv_pw2/issues"
+  },
+  "homepage": "https://github.com/r4faelzk/atv_pw2#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "mysql2": "^3.6.1",
+    "nodemon": "^3.0.1",
+    "sequelize": "^6.33.0"
+  }
+}
