@@ -8,7 +8,7 @@ const router = express.Router();
 
 //ROTA POST
 router.post("/cadastrarProduto", (req, res) => {
-    const { nome_produto, valor_produto, imagem_produto, descricao_produto } = req.body;
+    let { nome_produto, valor_produto, imagem_produto, descricao_produto } = req.body;
 
     produtoModel.create({
         nome_produto,
@@ -50,10 +50,8 @@ router.get("/listarProduto", (req, res) => {
 
 
 router.put("/alterarProduto", (req, res) => {
-    const { nome_produto, valor_produto, imagem_produto, descricao_produto } = req.body;
-
-
-    const { id } = req.params;
+    let { nome_produto, valor_produto, imagem_produto, descricao_produto } = req.body;
+    let { id } = req.params;
 
     produtoModel.update({
         nome_produto, 
@@ -77,6 +75,27 @@ router.put("/alterarProduto", (req, res) => {
     });
 });
 
+
+// ROTA DELETE
+router.delete("/excluirProduto/:id", (req, res) => {
+    let { id } = req.params;
+
+    produtoModel.destroy({
+        where: { codigo_produto: id }
+    })
+    .then(() => {
+        return res.status(200).json({
+            errorStatus: false,
+            messageStatus: "Produto excluído com sucesso"
+        });
+    })
+    .catch((error) => {
+        return res.status(500).json({
+            errorStatus: true,
+            messageStatus: error.message
+        });
+    });
+});
 
 
 module.exports = router;
