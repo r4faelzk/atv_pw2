@@ -7,21 +7,28 @@ const connection = require("../database/database");
 const Categoria = connection.define(
     'tbl_categoria',
     {
-        codigo_categoria:{
+        codigo_categoria: {
             type: sequelize.INTEGER,
             autoIncrement: true,
             primaryKey: true,
             unsigned: true
         },
 
-        nome_categoria:{
-            type: sequelize.VARCHAR(255),
+        nome_categoria: {
+            type: sequelize.STRING(255),
             allowNull: false
         },
 
-        observacoes_categoria:{
+        observacoes_categoria: {
             type: sequelize.TEXT,
             allowNull: false
         }
+    },
+    {
+        timestamps: false 
     }
-)
+);
+
+Categoria.sync({ force: false });
+
+module.exports = Categoria;

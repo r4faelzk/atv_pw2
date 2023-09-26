@@ -14,7 +14,10 @@ app.use(express.urlencoded({extended:true}));
 const categoriaController = require("./controller/categoriaController");
 app.use("/", categoriaController);
 
+const produtoController = require("./controller/produtoController");
+app.use("/", produtoController)
+
 //TESTANDO O SERVIDOR REQUISIÇÃO/RESPOSTA
-app.listen(3000, ()=>{
-    console.log('SERVIDOR DA ATIVIDADE ESTÁ RODANDO')
+app.listen(3120, ()=>{
+    console.log('SERVIDOR DA ATIVIDADE ESTÁ RODANDO NA PORTA 3120')
 });

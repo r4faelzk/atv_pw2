@@ -5,82 +5,90 @@ const categoriaModel = require("../model/categoria");
 
 const router = express.Router();
 
-//ROTAS DE INSERÇÃO DE CATEGORIA
-//ROTA POST
-router.post("/categoria/cadastrarCategoria", (req, res)=>{
-    let {nome_categoria} = req.body;
+// ROTA POST para cadastrar categoria
+router.post("/cadastrarCategoria", (req, res) => {
+    const { nome_categoria, observacoes_categoria } = req.body;
 
-    categoriaModel.create({nome_categoria})
-    .then(()=>{
+    categoriaModel.create({
+        nome_categoria,
+        observacoes_categoria
+    })
+    .then(() => {
         return res.status(201).json({
             errorStatus: false,
             messageStatus: "Categoria cadastrada com sucesso"
-        })
+        });
     })
-    .catch(((error)=>{
+    .catch((error) => {
         return res.status(500).json({
             errorStatus: true,
-            messageStatus: error
+            messageStatus: error.message // Use 'error.message' para obter a mensagem de erro
         });
-    }));
+    });
 });
 
-//ROTA GET
-router.get("/categoria/listarCategoria", (req, res)=>{
-    let {listar_categoria} = req.body;
-
-    categoriaModel.create({listar_categoria})
-    .then(()=>{
-        return res.status(201).json({
+// ROTA GET para listar categorias
+router.get("/listarCategoria", (req, res) => {
+    categoriaModel.findAll() // Use 'findAll' para buscar todas as categorias
+    .then((categorias) => {
+        return res.status(200).json({
             errorStatus: false,
-            messageStatus: "Categoria listada com sucesso"
-        })
+            messageStatus: "Categorias listadas com sucesso",
+            data: categorias // Retorne os dados das categorias
+        });
     })
-    .catch(((error)=>{
+    .catch((error) => {
         return res.status(500).json({
             errorStatus: true,
-            messageStatus: error
+            messageStatus: error.message
         });
-    }));
+    });
 });
 
-//ROTA PUT
-router.get("/categoria/alterarCategoria", (req, res)=>{
-    let {alterar_categoria} = req.body;
+// ROTA PUT para alterar categoria
+router.put("/alterarCategoria", (req, res) => {
+    const { nome_categoria, observacoes_categoria } = req.body;
+    const { id } = req.params;
 
-    categoriaModel.create({alterar_categoria})
-    .then(()=>{
-        return res.status(201).json({
+    categoriaModel.update({
+        nome_categoria,
+        observacoes_categoria
+    }, {
+        where: { codigo_categoria: id }
+    })
+    .then(() => {
+        return res.status(200).json({
             errorStatus: false,
             messageStatus: "Categoria alterada com sucesso"
-        })
+        });
     })
-    .catch(((error)=>{
+    .catch((error) => {
         return res.status(500).json({
             errorStatus: true,
-            messageStatus: error
+            messageStatus: error.message
         });
-    }));
+    });
 });
 
-//ROTA DELETE
-router.get("/categoria/excluirCategoria", (req, res)=>{
-    let {excluir_categoria} = req.body;
+// ROTA DELETE para excluir categoria
+router.delete("/excluirCategoria/:id", (req, res) => {
+    const { id } = req.params;
 
-    categoriaModel.create({excluir_categoria})
-    .then(()=>{
-        return res.status(201).json({
+    categoriaModel.destroy({
+        where: { codigo_categoria: id }
+    })
+    .then(() => {
+        return res.status(200).json({
             errorStatus: false,
             messageStatus: "Categoria excluída com sucesso"
-        })
+        });
     })
-    .catch(((error)=>{
+    .catch((error) => {
         return res.status(500).json({
             errorStatus: true,
-            messageStatus: error
+            messageStatus: error.message
         });
-    }));
+    });
 });
 
 module.exports = router;
-

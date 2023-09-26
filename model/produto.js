@@ -15,7 +15,7 @@ const Produto = connection.define(
         },
 
         nome_produto:{
-            type: sequelize.VARCHAR(255),
+            type: sequelize.STRING(255),
             allowNull: false
         },
 
@@ -25,7 +25,7 @@ const Produto = connection.define(
         },
 
         imagem_produto:{
-            type: sequelize.VARCHAR(500),
+            type: sequelize.STRING(500),
             allowNull: false
         },
 
@@ -33,5 +33,12 @@ const Produto = connection.define(
             type: sequelize.TEXT,
             allowNull: false
         }
+    },
+    {
+        timestamps: false 
     }
 )
+
+Produto.sync({ force: false });
+
+module.exports = Produto;
