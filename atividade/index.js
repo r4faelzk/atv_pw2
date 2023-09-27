@@ -14,6 +14,7 @@ app.use(express.urlencoded({extended:true}));
 const categoriaController = require("./controller/categoriaController");
 app.use("/", categoriaController);
 
+//IMPORTACAO DA CONTROLLER PRODUTO
 const produtoController = require("./controller/produtoController");
 app.use("/", produtoController)
 

@@ -1,14 +1,13 @@
-//IMPORTACAO DO MODULO DO EXPRESS
+// IMPORTAÇÃO DO MÓDULO DO EXPRESS
 const express = require('express');
-
-const categoriaModel = require("../model/categoria");
-
+const categoriaModel = require("../model/categoria"); // IMPORTAÇÃO DO MODELO DE CATEGORIA
 const router = express.Router();
 
-// ROTA POST para cadastrar categoria
+// ROTA POST PARA CADASTRAR UMA CATEGORIA
 router.post("/cadastrarCategoria", (req, res) => {
-    let { nome_categoria, observacoes_categoria } = req.body;
+    let { nome_categoria, observacoes_categoria } = req.body; // OBTENÇÃO DOS DADOS DO CORPO DA REQUISIÇÃO
 
+    // CRIA UMA NOVA CATEGORIA NO BANCO DE DADOS USANDO O MODELO
     categoriaModel.create({
         nome_categoria,
         observacoes_categoria
@@ -16,7 +15,7 @@ router.post("/cadastrarCategoria", (req, res) => {
     .then(() => {
         return res.status(201).json({
             errorStatus: false,
-            messageStatus: "Categoria cadastrada com sucesso"
+            messageStatus: "CATEGORIA CADASTRADA COM SUCESSO"
         });
     })
     .catch((error) => {
@@ -27,14 +26,15 @@ router.post("/cadastrarCategoria", (req, res) => {
     });
 });
 
-// ROTA GET para listar categorias
+// ROTA GET PARA LISTAR CATEGORIAS
 router.get("/listarCategoria", (req, res) => {
+    // BUSCA TODAS AS CATEGORIAS NO BANCO DE DADOS USANDO O MODELO
     categoriaModel.findAll() 
     .then((categorias) => {
         return res.status(200).json({
             errorStatus: false,
-            messageStatus: "Categorias listadas com sucesso",
-            data: categorias // Retorne os dados das categorias
+            messageStatus: "CATEGORIAS LISTADAS COM SUCESSO",
+            data: categorias // RETORNA OS DADOS DAS CATEGORIAS
         });
     })
     .catch((error) => {
@@ -45,21 +45,22 @@ router.get("/listarCategoria", (req, res) => {
     });
 });
 
-// ROTA PUT para alterar categoria
-router.put("/alterarCategoria", (req, res) => {
-    let { nome_categoria, observacoes_categoria } = req.body;
-    let { id } = req.params;
+// ROTA PUT PARA ALTERAR UMA CATEGORIA
+router.put("/alterarCategoria/:id", (req, res) => {
+    let { nome_categoria, observacoes_categoria } = req.body; // OBTENÇÃO DOS DADOS DO CORPO DA REQUISIÇÃO
+    let { id } = req.params; // OBTENÇÃO DO ID DA CATEGORIA A SER ALTERADA
 
+    // ATUALIZA A CATEGORIA NO BANCO DE DADOS USANDO O MODELO
     categoriaModel.update({
         nome_categoria,
         observacoes_categoria
     }, {
-        where: { codigo_categoria: id }
+        where: { codigo_categoria: id } // CONDIÇÃO PARA ENCONTRAR A CATEGORIA PELO ID
     })
     .then(() => {
         return res.status(200).json({
             errorStatus: false,
-            messageStatus: "Categoria alterada com sucesso"
+            messageStatus: "CATEGORIA ALTERADA COM SUCESSO"
         });
     })
     .catch((error) => {
@@ -70,17 +71,18 @@ router.put("/alterarCategoria", (req, res) => {
     });
 });
 
-// ROTA DELETE para excluir categoria
+// ROTA DELETE PARA EXCLUIR UMA CATEGORIA
 router.delete("/excluirCategoria/:id", (req, res) => {
-    let { id } = req.params;
+    let { id } = req.params; // OBTENÇÃO DO ID DA CATEGORIA A SER EXCLUÍDA
 
+    // EXCLUI A CATEGORIA NO BANCO DE DADOS USANDO O MODELO
     categoriaModel.destroy({
-        where: { codigo_categoria: id }
+        where: { codigo_categoria: id } // CONDIÇÃO PARA ENCONTRAR A CATEGORIA PELO ID
     })
     .then(() => {
         return res.status(200).json({
             errorStatus: false,
-            messageStatus: "Categoria excluída com sucesso"
+            messageStatus: "CATEGORIA EXCLUÍDA COM SUCESSO"
         });
     })
     .catch((error) => {
@@ -91,4 +93,4 @@ router.delete("/excluirCategoria/:id", (req, res) => {
     });
 });
 
-module.exports = router;
+module.exports = router; // EXPORTA O OBJETO DE ROTA DO EXPRESS

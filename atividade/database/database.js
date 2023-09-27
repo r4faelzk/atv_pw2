@@ -1,6 +1,7 @@
 //IMPORTACAO DO MODULO DO SEQUELIZE
 const sequelize = require("sequelize");
 
+//CRIA A CONEXAO COM O BANCO DE DADOS POR MEIO DO SEQUELIZE
 const connection = new sequelize(
     "atv_pw2",
     "root",
